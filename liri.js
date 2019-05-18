@@ -52,7 +52,7 @@ function movieThis(media) {
         media = "Mr. Nobody"
     }
 
-    request("http://www.omdbapi.com/?apikey=trilogy&t=" + media, function (err, response, data) {
+    axios.get("http://www.omdbapi.com/?apikey=trilogy&t=" + media, function (err, response, data) {
         try {
             var response = JSON.parse(data)
             if (response.Title != undefined) {
