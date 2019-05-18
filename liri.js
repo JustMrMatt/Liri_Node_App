@@ -23,6 +23,7 @@ function switchStuff(command, media) {
     }
 };
 
+ // Not currently functioning, unsure why //
 function spotifyThis(media) {
     if (media == "") {
         media = "The Sign"
@@ -35,7 +36,7 @@ function spotifyThis(media) {
             if (song != undefined) {
                 console.log("Song: " + song.name);
                 console.log("Artist: " + song.artists.name);
-                console.log("Song Preview: " + song.preview_url);
+                console.log("Song Preview: " + song.external_urls.spotify);
                 console.log("Album: " + song.album.name);
             } else {
                 console.log("Song is Unavailable")
@@ -45,3 +46,29 @@ function spotifyThis(media) {
             console.log(err);
         });
 }
+
+function movieThis(media) {
+    if (media == "") {
+        media = "Mr. Nobody"
+    }
+
+    request("http://www.omdbapi.com/?apikey=trilogy&t=" + media, function (err, response, data) {
+        try {
+            var response = JSON.parse(data)
+            if (response.Title != undefined) {
+                console.log(response.Title);
+                console.log(response.Year);
+                console.log(response.Ratings[0].Value);
+            } else {
+                console.log("Movie Unavailable");
+            }
+        }
+        catch (err) {
+            console.log("Movie Unavailable");
+        }
+    });
+}
+
+
+
+switchStuff(command, media);
