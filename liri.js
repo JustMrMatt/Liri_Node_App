@@ -23,3 +23,25 @@ function switchStuff(command, media) {
     }
 };
 
+function spotifyThis(media) {
+    if (media == "") {
+        media = "The Sign"
+    }
+
+    spotify
+        .search({ type: 'track', query: media, limit: 1 })
+        .then(function (response) {
+            var song = response.tracks.items[0];
+            if (song != undefined) {
+                console.log("Song: " + song.name);
+                console.log("Artist: " + song.artists.name);
+                console.log("Song Preview: " + song.preview_url);
+                console.log("Album: " + song.album.name);
+            } else {
+                console.log("Song is Unavailable")
+            }
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
